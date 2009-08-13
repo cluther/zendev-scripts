@@ -25,8 +25,13 @@ The `zp` command has built-in tab completion. So you can begin to explore its po
 * `zp mate HttpMonitor<tab>`
 	[Textmate](http://macromates.com/) is my favorite editor. Running this command will open the typical working directory of the ZenPack in a Textmate project.
 * `zp mater HttpMonitor<tab>`
+	
 	Open the root directory of the ZenPack in Textmate.
+	
 * `zp install HttpMonitor<tab>`
+	
 	Installs the specified ZenPack.
+	
 * `zp remote HttpMonitor<tab>`
+	
 	Removes the specified ZenPack. Will only tab complete currently installed ZenPacks.
