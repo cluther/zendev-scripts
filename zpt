@@ -1,0 +1,138 @@
+#!/usr/bin/env python
+import os
+import sys
+from optparse import OptionParser
+
+class ZenPack:
+    def __init__(self, name, path):
+        self.name = name
+        self.path = path
+
+    def getName(self):
+        return self.name
+
+    def getRootPath(self):
+        return self.path
+
+    def getPath(self):
+        return os.path.join(self.path, self.name.replace('.', os.path.sep))
+
+    def getShortcutNames(self):
+        return [
+            self.getName(),
+            '.'.join(self.getName().split('.')[1:]),
+            self.getName().split('.')[-1],
+            ]
+
+
+class ZenPackTool:
+    basePaths = []
+    packs = {}
+    
+    def addInstalledPacks(self):
+        packDir = os.path.join(os.environ['ZENHOME'], 'ZenPacks')
+        easy_install = open(os.path.join(packDir, 'easy-install.pth'), 'r')
+        for line in easy_install:
+            line = line.strip()
+            if line.startswith('/'):
+                packName = line.split(os.path.sep)[-1]
+                self.packs[packName] = ZenPack(packName, line)
+            elif line.startswith('./'):
+                packName = line.split(os.path.sep)[-1]
+                packName = packName.split('-')[0]
+                self.packs[packName] = ZenPack(packName,
+                    os.path.join(packDir, line[2:]))
+
+        easy_install.close()
+
+    def addSourcePath(self, path):
+        if path in self.basePaths:
+            return
+
+        for f in os.listdir(path):
+            if f.startswith('ZenPacks.'):
+                self.packs[f] = ZenPack(f, os.path.join(path, f))
+
+    def getNames(self):
+        return [ p.getName() for p in self.packs.values() ]
+
+    def getShortcutNames(self):
+        shortcuts = []
+        for p in self.packs.values():
+            shortcuts.extend(p.getShortcutNames())
+        return shortcuts
+
+    def getRootPaths(self):
+        return [ p.getRootPath() for p in self.packs.values() ]
+
+    def findPack(self, match):
+        if match in self.packs:
+            return packs[match]
+
+        for name, pack in self.packs.items():
+            if match in name:
+                return self.packs[name]
+
+
+if __name__ == '__main__':
+    if 'ZENHOME' not in os.environ:
+        print >> sys.stderr, "ZENHOME is not set."
+        sys.exit(1)
+
+    parser = OptionParser()
+    parser.add_option('--source', dest='source',
+        action='append',
+        help='Base path to look for ZenPacks in.')
+    parser.add_option('--names', dest='names',
+        action='store_true', default=False,
+        help='List all ZenPack names')
+    parser.add_option('--shortcuts', dest='shortcuts',
+        action='store_true', default=False,
+        help='List all ZenPack names and shortcut names')
+    parser.add_option('--paths', dest='paths',
+        action='store_true', default=False,
+        help='List all ZenPack paths')
+    parser.add_option('--match', dest='match',
+        help='Name of the ZenPack to get the path for')
+    parser.add_option('--workdir', dest='workdir',
+        action='store_true', default=False,
+        help='Get the working directory of the ZenPack')
+    parser.add_option('--rootdir', dest='rootdir',
+        action='store_true', default=False,
+        help='Get the root directory of the ZenPack')
+    parser.add_option('--fullname', dest='fullname',
+        action='store_true', default=False,
+        help='Get the full ZenPack name instead of path')
+    options, args = parser.parse_args()
+
+    if not options.names and not options.shortcuts and not options.paths:
+        if not options.match:
+            print >> sys.stderr, "You must specify the match."
+            sys.exit(2)
+
+    t = ZenPackTool()
+    for source in options.source or []:
+        t.addSourcePath(source)
+    t.addInstalledPacks()
+
+    if options.names:
+        for name in t.getNames():
+            print name
+    elif options.shortcuts:
+        for name in t.getShortcutNames():
+            print name
+    elif options.paths:
+        for path in t.getRootPaths():
+            print path
+    elif options.match:
+        pack = t.findPack(options.match)
+        if not pack:
+            print >> sys.stderr, "ZenPack not found."
+            sys.exit(3)
+
+        if options.fullname:
+            print pack.getName()
+        elif options.rootdir:
+            print pack.getRootPath()
+        else:
+            print pack.getPath()
