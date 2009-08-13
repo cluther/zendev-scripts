@@ -18,12 +18,18 @@ These steps should be performed as the `zenoss` user on your system.
 You never need to invoke the `zpt` script directly. It is really only intended to be invoked by the `zp` tool to do the heavy lifting of locating all of the ZenPacks (installed and not) on your system.
 
 The `zp` command has built-in tab completion. So you can begin to explore its possibilities just by typing `zp <tab><tab>`. Below are some of the possibilities. You can also tab complete the names of the ZenPacks beginning with any portion of the namespace.
+
 * `zp cd HttpMonitor<tab>`
+	
 	Changes to the typical working directory within the specified ZenPack. This would be.
+	
 * `zp cdr HttpMonitor<tab>`
+	
 	Changes to the root directory of a ZenPack. This is really only useful because it contains the setup.py file that you occasionally need to modify.
 * `zp mate HttpMonitor<tab>`
+	
 	[Textmate](http://macromates.com/) is my favorite editor. Running this command will open the typical working directory of the ZenPack in a Textmate project.
+	
 * `zp mater HttpMonitor<tab>`
 	
 	Open the root directory of the ZenPack in Textmate.
