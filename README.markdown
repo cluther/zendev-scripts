@@ -22,7 +22,7 @@ The `zp` command has built-in tab completion. So you can begin to explore its po
 
 * `zp cd HttpMonitor<tab>`
 	
-	Changes to the typical working directory within the specified ZenPack. This would be.
+	Changes to the typical working directory within the specified ZenPack.
 	
 * `zp cdr HttpMonitor<tab>`
 	
