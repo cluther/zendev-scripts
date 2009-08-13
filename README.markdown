@@ -9,6 +9,7 @@ Currently this is limited to a combination of scripts that make working with Zen
 
 ### Installation
 These steps should be performed as the `zenoss` user on your system.
+
 1. `cp zpt zendev.sh $ZENHOME/bin`
 2. `echo "source $ZENHOME/bin/zendev.sh" >> ~/.bashrc`
 3. Edit $ZENHOME/bin/zendev.sh and set the ZENPACKSOURCES to any directories where you have ZenPacks stored. The installed ZenPacks will automatically be found.
