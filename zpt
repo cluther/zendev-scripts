@@ -31,7 +31,11 @@ class ZenPackTool:
     
     def addInstalledPacks(self):
         packDir = os.path.join(os.environ['ZENHOME'], 'ZenPacks')
-        easy_install = open(os.path.join(packDir, 'easy-install.pth'), 'r')
+        try:
+            easy_install = open(os.path.join(packDir, 'easy-install.pth'), 'r')
+        except IOError:
+            return
+
         for line in easy_install:
             line = line.strip()
             if line.startswith('/'):
