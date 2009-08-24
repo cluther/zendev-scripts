@@ -19,7 +19,7 @@ zp () {
             mate "$(zpt $ZENPACKSOURCES --match $2)"
             ;;
         mater)
-            mater "$(zpt $ZENPACKSOURCES --match $2 --rootdir)"
+            mate "$(zpt $ZENPACKSOURCES --match $2 --rootdir)"
             ;;
         install)
             installPath="$(zpt $ZENPACKSOURCES --match $2 --rootdir)"
