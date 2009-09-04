@@ -39,6 +39,10 @@ The `zp` command has built-in tab completion. So you can begin to explore its po
 	
 	Installs the specified ZenPack.
 	
-* `zp remote HttpMonitor<tab>`
+* `zp remove HttpMonitor<tab>`
 	
 	Removes the specified ZenPack. Will only tab complete currently installed ZenPacks.
+	
+* `zp build HttpMonitor<tab>`
+	
+	Build an egg of the specified ZenPack and copy it into the your working directory.
