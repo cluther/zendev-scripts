@@ -5,6 +5,7 @@ ZENPACKSOURCES="
 --source=$ZENHOME/customer-zenpacks
 --source=$ZENHOME/community-zenpacks
 --source=$ZENHOME/my-zenpacks
+--source=$ZENHOME/cs-zenpacks
 "
 
 zp () {
@@ -28,8 +29,20 @@ zp () {
         remove)
             zenpack --remove "$(zpt --match $2 --fullname)"
             ;;
+        build)
+            BEGINDIR=$(pwd)
+            if cd "$(zpt $ZENPACKSOURCES --match $2 --rootdir)"
+            then
+                rm -rf dist
+                python setup.py bdist_egg
+                cp dist/* $BEGINDIR
+                cd $BEGINDIR
+            else
+                echo "$2 not found."
+            fi
+            ;;
         *)
-            echo "Valid commands: cd, cdr, mate, mater, install, remove"
+            echo "Valid commands: cd, cdr, mate, mater, install, remove, build"
             return 1
     esac
 }
@@ -40,7 +53,7 @@ _zp() {
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
     case "${prev}" in
-        cd|cdr|mate|mater|install)
+        cd|cdr|mate|mater|install|build)
             workdirs=$(zpt $ZENPACKSOURCES --shortcuts)
             COMPREPLY=( $(compgen -W "${workdirs}" -- ${cur}) )
             return 0
@@ -51,7 +64,7 @@ _zp() {
             return 0
             ;;
         zp)
-            commands="cd cdr mate mater install remove"
+            commands="cd cdr mate mater install remove build"
             COMPREPLY=( $(compgen -W "${commands}" -- ${cur}) )
             return 0
             ;;
