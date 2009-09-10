@@ -27,6 +27,16 @@ The `zp` command has built-in tab completion. So you can begin to explore its po
 * `zp cdr HttpMonitor<tab>`
 	
 	Changes to the root directory of a ZenPack. This is really only useful because it contains the setup.py file that you occasionally need to modify.
+	
+* `zp pushd HttpMonitor<tab>`
+	
+	Pushes the typical working directory within the specified ZenPack onto the
+	stack.
+	
+* `zp pushdr HttpMonitor<tab>`
+	
+	Pushes the root directory of a ZenPack onto the stack.
+	
 * `zp mate HttpMonitor<tab>`
 	
 	[Textmate](http://macromates.com/) is my favorite editor. Running this command will open the typical working directory of the ZenPack in a Textmate project.

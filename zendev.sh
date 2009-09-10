@@ -16,6 +16,12 @@ zp () {
         cdr)
             cd "$(zpt $ZENPACKSOURCES --match $2 --rootdir)"
             ;;
+        pushd)
+            pushd "$(zpt $ZENPACKSOURCES --match $2)"
+            ;;
+        pushdr)
+            pushd "$(zpt $ZENPACKSOURCES --match $2 --rootdir)"
+            ;;
         mate)
             mate "$(zpt $ZENPACKSOURCES --match $2)"
             ;;
@@ -42,7 +48,9 @@ zp () {
             fi
             ;;
         *)
-            echo "Valid commands: cd, cdr, mate, mater, install, remove, build"
+            echo "Valid commands:"
+            echo "  cd, cdr, pushd, pushdr, mate, mater, install, remove, build"
+            echo "  install, remove, build"
             return 1
     esac
 }
@@ -53,7 +61,7 @@ _zp() {
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
     case "${prev}" in
-        cd|cdr|mate|mater|install|build)
+        cd|cdr|pushd|pushdr|mate|mater|install|build)
             workdirs=$(zpt $ZENPACKSOURCES --shortcuts)
             COMPREPLY=( $(compgen -W "${workdirs}" -- ${cur}) )
             return 0
@@ -64,7 +72,7 @@ _zp() {
             return 0
             ;;
         zp)
-            commands="cd cdr mate mater install remove build"
+            commands="cd cdr pushd pushdr mate mater install remove build"
             COMPREPLY=( $(compgen -W "${commands}" -- ${cur}) )
             return 0
             ;;
