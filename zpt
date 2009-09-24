@@ -115,9 +115,9 @@ if __name__ == '__main__':
             sys.exit(2)
 
     t = ZenPackTool()
+    t.addInstalledPacks()
     for source in options.source or []:
         t.addSourcePath(source)
-    t.addInstalledPacks()
 
     if options.names:
         for name in t.getNames():
