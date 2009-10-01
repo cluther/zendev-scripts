@@ -71,7 +71,7 @@ class ZenPackTool:
 
     def findPack(self, match):
         if match in self.packs:
-            return packs[match]
+            return self.packs[match]
 
         for name, pack in self.packs.items():
             if match in name:
