@@ -1,11 +1,11 @@
 # ZenPack Development Helpers
 ZENPACKSOURCES="
---source=$ZENHOME/core-zenpacks
---source=$ZENHOME/enterprise-zenpacks
---source=$ZENHOME/customer-zenpacks
---source=$ZENHOME/community-zenpacks
 --source=$ZENHOME/my-zenpacks
 --source=$ZENHOME/cs-zenpacks
+--source=$ZENHOME/community-zenpacks
+--source=$ZENHOME/customer-zenpacks
+--source=$ZENHOME/enterprise-zenpacks
+--source=$ZENHOME/core-zenpacks
 "
 
 zp () {
