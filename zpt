@@ -53,9 +53,13 @@ class ZenPackTool:
         if path in self.basePaths:
             return
 
-        for f in os.listdir(path):
-            if f.startswith('ZenPacks.') and not f.endswith('.egg'):
-                self.packs[f] = ZenPack(f, os.path.join(path, f))
+        try:
+            for f in os.listdir(path):
+                if f.startswith('ZenPacks.') and not f.endswith('.egg'):
+                    self.packs[f] = ZenPack(f, os.path.join(path, f))
+        except OSError:
+            # Skip missing directories.
+            pass
 
     def getNames(self):
         return [ p.getName() for p in self.packs.values() ]
