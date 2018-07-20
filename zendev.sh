@@ -22,6 +22,9 @@ zp () {
         pushdr)
             pushd "$(zpt $ZENPACKSOURCES --match $2 --rootdir)"
             ;;
+        visetup)
+            vi "$(zpt $ZENPACKSOURCES --match $2 --rootdir)/setup.py"
+            ;;
         mate)
             mate "$(zpt $ZENPACKSOURCES --match $2)"
             ;;
@@ -49,7 +52,8 @@ zp () {
             ;;
         *)
             echo "Valid commands:"
-            echo "  cd, cdr, pushd, pushdr, mate, mater, install, remove, build"
+            echo "  cd, cdr, pushd, pushdr"
+            echo "  visetup, mate, mater"
             echo "  install, remove, build"
             return 1
     esac
