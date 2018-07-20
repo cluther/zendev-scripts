@@ -36,6 +36,10 @@ The `zp` command has built-in tab completion. So you can begin to explore its po
 * `zp pushdr HttpMonitor<tab>`
 	
 	Pushes the root directory of a ZenPack onto the stack.
+
+* `zp visetup HttpMonitor<tab>`
+
+    Open the ZenPack's setup.py in vi. Useful to update the ZenPack's version and requirements.
 	
 * `zp mate HttpMonitor<tab>`
 	
